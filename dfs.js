@@ -51,3 +51,4 @@ function isValid(start, path) {
 }
 
 console.log(knights([0,0], [0,6]));
+
