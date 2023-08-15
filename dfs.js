@@ -6,12 +6,8 @@ function knights (start, target, path = new Set(), memo = {shortest: Infinity, p
         return path;
     }
 
-    if (path.size >= memo.shortest) {
-        return false;;
-    }
-
-    if (!isValid(start, path)) {
-        return false;
+    if (!isValid(start, path, memo)) {
+        return null;
     }
 
     const moves = [
@@ -40,14 +36,19 @@ function knights (start, target, path = new Set(), memo = {shortest: Infinity, p
     }
 }
 
-function isValid(start, path) {
+function isValid(start, path, memo) {
     const [x, y] = start;
-    if (x >= 0 && y >= 0 && x < 8 & y < 8) {
-        if (!path.has(start.toString())) {
-            return true;
-        }
+    if (x < 0 || y < 0 || x > 7 || y > 7) {
+        return false;
     }
-    return false;
+    if (path.has(start.toString())) {
+        return false;
+    }
+    if (path.size >= memo.shortest) {
+        return false;
+    }
+
+    return true;
 }
 
 console.log(knights([0,0], [0,6]));
